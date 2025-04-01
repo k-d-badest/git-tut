@@ -1,0 +1,80 @@
+/* Most Common CSS Properties
+* Colors - 
+* i) background-color 
+* ii) color
+* Size - 
+* i) width 
+* ii) height
+* Fonts - font-family 
+* i) font-size 
+* ii)font-weight
+* Border - border
+*/
+/*  Box Model
+* This divides the elements on our pages into four different layers - They are:
+* Content 
+* Padding
+* Border
+* Margin
+ */
+ /* Advanced Css Properties 
+ *  Display -
+ * CSS Display values 
+ * Block element - Starts on a new line, Takes up 100% of available width, e.g <p>, <h1> 2 <h6>, <div>
+ * Inline elements - Does not start on aew line, Only takes up necessary width, Cannot set width & height, e.g <a>, <span> <button>
+ *  Position - 
+ * CSS position values 
+ * Static - Default - Follows the normal flow of the page.
+ * Relative - Follows the normal flow of the page, Can change the position by using top, right, bottom, left
+ * Absolute - Doesn't follow the normal flow of the page, Can change position by using top, right, bottom, left, Position will be based on the nearest "position:relative" parent
+ * Fixed - Does not flow the normal flow of the page, Can change position by using top, right , bottom, left, Position will be based on the viewport(screen)
+ * Sticky - Follows the normal flow of the page, until the user scrolls past a certain point. then it will become "position:fixed".
+ */
+ /* MEDIA QUERY 
+ * Always keep Your highest query at the top
+ */
+ /* Pseudo and its Classes/Elements
+ * :hover
+ * the pseudo classes are ::after and ::before - when using the pseudo classes/elements you must define the content - content: "";
+ * In transform : translate you have only X and Y 
+ * X - moves it horizontally ------left to right
+ * Y - moves it vertically | up to down
+ * Alternate-reverse makes the animation to smoothly go back to its initial position
+  */
+  /* BEM - Block Element Modifier 
+  * This is a naming method for writing CSS clases to keep code organised.
+  * Naming method: block__element--modifier.
+  * B - Block (Standalone component)
+  * E - Element (Parts of the block)
+  * M - Modifier (Variations/modification of blocka and elements)
+   * e.g of a bad BEM
+  <div class="box">
+    <h2 class="itle">Text</h2>
+    <p class="paragrapgh">Text</p>
+    <button class="button">Text</button>
+  </div>
+  * e.g of a good BEM
+  <div class="box">
+    <h2 class="box__title">Text</h2>
+    <p class="box-paragrapgh">Text</p>
+    <button class="box__button box__button--active">Text</button>
+  </div>
+  */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+p{
+    animation: float 1000ms infinite alternate-reverse;
+}
+
+@keyframes float{
+    0%{
+        transform: translateY(0);
+    }
+    100%{
+        transform: translateY(16px);
+    }
+}

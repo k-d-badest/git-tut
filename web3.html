@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Randomly Placed Floating Crypto Coins</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body style="margin: 0; overflow: hidden; background: black;">
+<script>
+    let scene = new THREE.Scene();
+    let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    let renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // 🔹 Load Ethereum logo texture
+    const loader = new THREE.TextureLoader();
+    const ethTexture = loader.load("https://upload.wikimedia.org/wikipedia/commons/6/6f/Ethereum-icon-purple.svg");
+
+    // 🔹 Coin Materials
+    let ethMaterial = new THREE.MeshStandardMaterial({
+        map: ethTexture,
+        metalness: 0.9,
+        roughness: 0.1,
+        side: THREE.DoubleSide,
+        transparent: true,
+    });
+
+    const loader2 = new THREE.TextureLoader();
+    const megaethTexture = loader2.load("SOL.png");
+
+    // 🔹 Coin Materials
+    let megaethMaterial = new THREE.MeshStandardMaterial({
+        map: megaethTexture,
+        metalness: 0.9,
+        roughness: 0.1,
+        side: THREE.DoubleSide,
+        transparent: true,
+    });
+
+    let goldMaterial = new THREE.MeshStandardMaterial({
+        color: 0xffd700,
+        metalness: 1,
+        roughness: 0.3,
+    });
+
+    // 🔹 Create Coins with Random Placement
+    let coins = [];
+    for (let i = 0; i < 5; i++) {
+        let coinGeometry = new THREE.CylinderGeometry(1, 1, 0.1, 50);
+        let material;
+        if (i === 0) {
+            material = ethMaterial;
+        } else if (i === 1) {
+            material = megaethMaterial; // Assign MegaETH material to the second coin
+        } else {
+            material = goldMaterial;
+        }
+
+        let coin = new THREE.Mesh(coinGeometry, material);
+        
+        // 🌀 Random positions around the center
+        coin.position.set(
+            (Math.random() - 0.5) * 10,  // Random X (-5 to 5)
+            (Math.random() - 0.5) * 6,   // Random Y (-3 to 3)
+            (Math.random() - 0.5) * 5    // Random Z (-2.5 to 2.5)
+        );
+
+        scene.add(coin);
+        coins.push(coin);
+    }
+
+    // 🔹 Lighting
+    let light = new THREE.PointLight(0xffffff, 2);
+    light.position.set(5, 5, 5);
+    scene.add(light);
+
+    let ambientLight = new THREE.AmbientLight(0x404040);
+    scene.add(ambientLight);
+
+    // 🔹 Camera Positioning
+    camera.position.z = 6;
+
+    // 🔹 Animate Coins (Floating & Flipping Effect)
+    function animate() {
+        requestAnimationFrame(animate);
+        coins.forEach((coin, index) => {
+            coin.rotation.y += 0.03; // Spin horizontally
+            coin.rotation.x += 0.03; // Flip the coin (Fix applied)
+            coin.position.y += Math.sin(Date.now() * 0.002 + index) * 0.01; // Floating effect
+        });
+        renderer.render(scene, camera);
+    }
+
+    animate();
+</script>
+</body>
+</html>
